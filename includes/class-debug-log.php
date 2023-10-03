@@ -65,7 +65,7 @@ class MC4WP_Debug_Log {
 	 * @param string $file
 	 * @param mixed $level;
 	 */
-	public function __construct( $file, $level = self::DEBUG ) {
+	public function __construct( string $file, $level = self::DEBUG ) {
 		$this->file  = $file;
 		$this->level = self::to_level( $level );
 	}
@@ -75,7 +75,7 @@ class MC4WP_Debug_Log {
 	 * @param string $message
 	 * @return boolean
 	 */
-	public function log( $level, $message ) {
+	public function log( $level, string $message ) : bool {
 		$level = self::to_level( $level );
 
 		// only log if message level is higher than log level
@@ -145,7 +145,7 @@ class MC4WP_Debug_Log {
 	 * @param string $message
 	 * @return boolean
 	 */
-	public function warning( $message ) {
+	public function warning( string $message ) : bool {
 		return $this->log( self::WARNING, $message );
 	}
 
@@ -153,7 +153,7 @@ class MC4WP_Debug_Log {
 	 * @param string $message
 	 * @return boolean
 	 */
-	public function info( $message ) {
+	public function info( string $message ) : bool {
 		return $this->log( self::INFO, $message );
 	}
 
@@ -161,7 +161,7 @@ class MC4WP_Debug_Log {
 	 * @param string $message
 	 * @return boolean
 	 */
-	public function error( $message ) {
+	public function error( string $message ) : bool {
 		return $this->log( self::ERROR, $message );
 	}
 
@@ -169,17 +169,17 @@ class MC4WP_Debug_Log {
 	 * @param string $message
 	 * @return boolean
 	 */
-	public function debug( $message ) {
+	public function debug( string $message ) : bool {
 		return $this->log( self::DEBUG, $message );
 	}
 
 	/**
 	 * Converts PSR-3 levels to local ones if necessary
 	 *
-	 * @param string|int Level number or name (PSR-3)
+	 * @param string|int $level Level number or name (PSR-3)
 	 * @return int
 	 */
-	public static function to_level( $level ) {
+	public static function to_level( $level ) : int {
 		if ( is_string( $level ) ) {
 			$level = strtoupper( $level );
 			if ( defined( __CLASS__ . '::' . $level ) ) {
@@ -198,7 +198,7 @@ class MC4WP_Debug_Log {
 	 * @param  int    $level
 	 * @return string
 	 */
-	public static function get_level_name( $level ) {
+	public static function get_level_name(int $level) : string {
 		if ( ! isset( self::$levels[ $level ] ) ) {
 			throw new InvalidArgumentException( 'Level "' . $level . '" is not defined, use one of: ' . implode( ', ', array_keys( self::$levels ) ) );
 		}
@@ -211,7 +211,7 @@ class MC4WP_Debug_Log {
 	 *
 	 * @return bool
 	 */
-	public function test() {
+	public function test() : bool {
 		$handle   = @fopen( $this->file, 'a' );
 		$writable = false;
 

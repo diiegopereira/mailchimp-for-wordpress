@@ -39,8 +39,8 @@ function _mc4wp_load_plugin() {
 		return;
 	}
 
-	// don't run if PHP version is lower than 5.3
-	if ( ! function_exists( 'array_replace' ) ) {
+	// don't run if PHP version is lower than 7.x
+	if ( PHP_MAJOR_VERSION < 7 ) {
 		return;
 	}
 

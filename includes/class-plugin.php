@@ -26,7 +26,7 @@ class MC4WP_Plugin {
 	 * @param string $file The plugin version.
 	 * @param string $version The main plugin file.
 	 */
-	public function __construct( $file, $version ) {
+	public function __construct( string $file, string $version ) {
 		$this->file    = $file;
 		$this->version = $version;
 	}
@@ -36,7 +36,7 @@ class MC4WP_Plugin {
 	 *
 	 * @return string
 	 */
-	public function file() {
+	public function file() : string {
 		return $this->file;
 	}
 
@@ -45,7 +45,7 @@ class MC4WP_Plugin {
 	 *
 	 * @return string
 	 */
-	public function version() {
+	public function version() : string {
 		return $this->version;
 	}
 
@@ -56,7 +56,7 @@ class MC4WP_Plugin {
 	 *
 	 * @return string
 	 */
-	public function dir( $path = '' ) {
+	public function dir( string $path = '' ) : string {
 
 		// ensure path has leading slash
 		if ( '' !== $path ) {
@@ -73,7 +73,7 @@ class MC4WP_Plugin {
 	 *
 	 * @return string
 	 */
-	public function url( $path = '' ) {
+	public function url( string $path = '' ) : string {
 		return plugins_url( $path, $this->file );
 	}
 }

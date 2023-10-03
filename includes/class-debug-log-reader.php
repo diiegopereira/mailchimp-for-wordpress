@@ -29,14 +29,14 @@ class MC4WP_Debug_Log_Reader {
 	/**
 	 * MC4WP_Debug_Log_Reader constructor.
 	 *
-	 * @param $file
+	 * @param string $file
 	 */
-	public function __construct( $file ) {
+	public function __construct( string $file ) {
 		$this->file = $file;
 	}
 
 	/**
-	 * @return string
+	 * @return false|string
 	 */
 	public function all() {
 		return file_get_contents( $this->file );
@@ -47,7 +47,7 @@ class MC4WP_Debug_Log_Reader {
 	 *
 	 * @param int $n
 	 */
-	private function seek_line_from_end( $n ) {
+	private function seek_line_from_end(int $n) {
 		$line_count = 0;
 
 		// get line count
@@ -61,7 +61,7 @@ class MC4WP_Debug_Log_Reader {
 
 		// calculate target
 		$target  = $line_count - $n;
-		$target  = $target > 1 ? $target : 1; // always skip first line because oh PHP header
+		$target  = max( $target, 1 ); // always skip first line because of PHP header
 		$current = 0;
 
 		// keep reading until we're at target
@@ -113,7 +113,7 @@ class MC4WP_Debug_Log_Reader {
 	}
 
 	/**
-	 * @return string
+	 * @return null|string
 	 */
 	public function read_as_html() {
 		$line = $this->read();
@@ -141,7 +141,7 @@ class MC4WP_Debug_Log_Reader {
 	 * @param int $number
 	 * @return string
 	 */
-	public function lines( $start, $number ) {
+	public function lines(int $start, int $number): string {
 		$handle = fopen( $start, 'r' );
 		$lines  = '';
 

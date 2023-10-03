@@ -41,7 +41,7 @@ function mc4wp( $service = null ) {
  * @static array $options
  * @return array
  */
-function mc4wp_get_options() {
+function mc4wp_get_options() : array {
 	$defaults = require MC4WP_PLUGIN_DIR . '/config/default-settings.php';
 	$options  = (array) get_option( 'mc4wp', array() );
 	$options  = array_merge( $defaults, $options );
@@ -57,7 +57,7 @@ function mc4wp_get_options() {
 /**
  * @return array
  */
-function mc4wp_get_settings() {
+function mc4wp_get_settings() : array {
 	return mc4wp_get_options();
 }
 
@@ -65,7 +65,7 @@ function mc4wp_get_settings() {
  * @since 4.2.6
  * @return string
  */
-function mc4wp_get_api_key() {
+function mc4wp_get_api_key() : string {
 	// try to get from constant
 	if ( defined( 'MC4WP_API_KEY' ) && constant( 'MC4WP_API_KEY' ) !== '' ) {
 		return MC4WP_API_KEY;
@@ -84,7 +84,7 @@ function mc4wp_get_api_key() {
  *
  * @return MC4WP_API_V3
  */
-function mc4wp_get_api_v3() {
+function mc4wp_get_api_v3() : MC4WP_API_V3 {
 	$api_key = mc4wp_get_api_key();
 	return new MC4WP_API_V3( $api_key );
 }
@@ -94,7 +94,7 @@ function mc4wp_get_api_v3() {
  *
  * @return MC4WP_Debug_Log
  */
-function mc4wp_get_debug_log() {
+function mc4wp_get_debug_log() : MC4WP_Debug_Log {
 	$opts = mc4wp_get_options();
 
 	// get default log file location
@@ -152,7 +152,7 @@ function mc4wp_get_debug_log() {
  * @param string $path
  * @return string
  */
-function mc4wp_plugin_url( $path ) {
+function mc4wp_plugin_url( string $path ) : string {
 	static $base = null;
 	if ( $base === null ) {
 		$base = plugins_url( '/', MC4WP_PLUGIN_FILE );
@@ -167,7 +167,7 @@ function mc4wp_plugin_url( $path ) {
  *
  * @return string
  */
-function mc4wp_get_request_url() {
+function mc4wp_get_request_url() : string {
 	global $wp;
 
 	// get requested url from global $wp object
@@ -190,7 +190,7 @@ function mc4wp_get_request_url() {
  *
  * @return string
  */
-function mc4wp_get_request_path() {
+function mc4wp_get_request_path() : string {
 	return $_SERVER['REQUEST_URI'];
 }
 
@@ -346,7 +346,7 @@ function _mc4wp_update_groupings_data( $data = array() ) {
  *
  * @return array
  */
-function mc4wp_add_name_data( $data ) {
+function mc4wp_add_name_data( array $data ) : array {
 
 	// Guess first and last name
 	if ( ! empty( $data['NAME'] ) && empty( $data['FNAME'] ) && empty( $data['LNAME'] ) ) {
@@ -379,7 +379,7 @@ function mc4wp_add_name_data( $data ) {
  *
  * @return string
  */
-function mc4wp_get_email_type() {
+function mc4wp_get_email_type() : string {
 	$email_type = 'html';
 
 	/**
@@ -397,7 +397,7 @@ function mc4wp_get_email_type() {
  * @ignore
  * @return bool
  */
-function _mc4wp_use_sslverify() {
+function _mc4wp_use_sslverify() : bool {
 
 	// Disable for all transports other than CURL
 	if ( ! function_exists( 'curl_version' ) ) {
@@ -425,7 +425,7 @@ function _mc4wp_use_sslverify() {
  * @param string $string
  * @return string
  */
-function mc4wp_obfuscate_string( $string ) {
+function mc4wp_obfuscate_string( $string ) : string {
 	$length            = strlen( $string );
 	$obfuscated_length = ceil( $length / 2 );
 	$string            = str_repeat( '*', $obfuscated_length ) . substr( $string, $obfuscated_length );
@@ -436,7 +436,7 @@ function mc4wp_obfuscate_string( $string ) {
  * @internal
  * @ignore
  */
-function _mc4wp_obfuscate_email_addresses_callback( $m ) {
+function _mc4wp_obfuscate_email_addresses_callback( $m ) : string {
 	$one   = $m[1] . str_repeat( '*', strlen( $m[2] ) );
 	$two   = $m[3] . str_repeat( '*', strlen( $m[4] ) );
 	$three = $m[5];
@@ -449,7 +449,7 @@ function _mc4wp_obfuscate_email_addresses_callback( $m ) {
  * @param $string String possibly containing email address
  * @return string
  */
-function mc4wp_obfuscate_email_addresses( $string ) {
+function mc4wp_obfuscate_email_addresses( string $string ) : string {
 	return preg_replace_callback( '/([\w\.]{1,4})([\w\.]*)\@(\w{1,2})(\w*)\.(\w+)/', '_mc4wp_obfuscate_email_addresses_callback', $string );
 }
 
@@ -498,7 +498,7 @@ function mc4wp_array_get( $array, $key, $default = null ) {
  * @return string
  * @since 4.8.8
  */
-function mc4wp_kses( $string ) {
+function mc4wp_kses( string $string ): string {
 	$always_allowed_attr = array_fill_keys(
 		array(
 			'aria-describedby',

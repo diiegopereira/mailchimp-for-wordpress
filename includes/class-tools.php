@@ -7,12 +7,8 @@
  * @ignore
  */
 class MC4WP_Tools {
-
-
-	/**
-	 * @return array
-	 */
-	public static function get_countries() {
+	
+	public static function get_countries() : array {
 		return array(
 			'AF' => 'Afghanistan',
 			'AX' => 'Aland Islands',

@@ -32,7 +32,7 @@ class MC4WP_Queue {
 	 *
 	 * @param string $option_name
 	 */
-	public function __construct( $option_name ) {
+	public function __construct( string $option_name ) {
 		$this->option_name = $option_name;
 
 		register_shutdown_function( array( $this, 'save' ) );
@@ -81,7 +81,7 @@ class MC4WP_Queue {
 	 *
 	 * @return MC4WP_Queue_Job[] Array of jobs
 	 */
-	public function all() {
+	public function all() : array {
 		$this->load();
 		return $this->jobs;
 	}
@@ -92,7 +92,7 @@ class MC4WP_Queue {
 	 * @param mixed $data
 	 * @return boolean
 	 */
-	public function put( $data ) {
+	public function put( $data ) : bool {
 		$this->load();
 
 		// check if we already have a job with same data

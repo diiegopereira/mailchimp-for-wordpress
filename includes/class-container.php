@@ -8,7 +8,6 @@
  */
 class MC4WP_Container implements ArrayAccess {
 
-
 	/**
 	 * @var array
 	 */
@@ -23,7 +22,7 @@ class MC4WP_Container implements ArrayAccess {
 	 * @param string $name
 	 * @return boolean
 	 */
-	public function has( $name ) {
+	public function has(string $name) : bool {
 		return isset( $this->services[ $name ] );
 	}
 
@@ -33,7 +32,7 @@ class MC4WP_Container implements ArrayAccess {
 	 * @return mixed
 	 * @throws Exception
 	 */
-	public function get( $name ) {
+	public function get(string $name) {
 		if ( ! $this->has( $name ) ) {
 			throw new Exception( sprintf( 'No service named %s was registered.', $name ) );
 		}
@@ -54,71 +53,23 @@ class MC4WP_Container implements ArrayAccess {
 		return $this->services[ $name ];
 	}
 
-	/**
-	 * (PHP 5 &gt;= 5.0.0)<br/>
-	 * Whether a offset exists
-	 * @link http://php.net/manual/en/arrayaccess.offsetexists.php
-	 *
-	 * @param mixed $offset <p>
-	 *                      An offset to check for.
-	 *                      </p>
-	 *
-	 * @return boolean true on success or false on failure.
-	 * </p>
-	 * <p>
-	 * The return value will be casted to boolean if non-boolean was returned.
-	 */
 	#[\ReturnTypeWillChange]
 	public function offsetExists( $offset ) {
 		return $this->has( $offset );
 	}
 
-	/**
-	 * (PHP 5 &gt;= 5.0.0)<br/>
-	 * Offset to retrieve
-	 * @link http://php.net/manual/en/arrayaccess.offsetget.php
-	 *
-	 * @param mixed $offset <p>
-	 *                      The offset to retrieve.
-	 *                      </p>
-	 *
-	 * @return mixed Can return all value types.
-	 */
 	#[\ReturnTypeWillChange]
 	public function offsetGet( $offset ) {
 		return $this->get( $offset );
 	}
 
-	/**
-	 * (PHP 5 &gt;= 5.0.0)<br/>
-	 * Offset to set
-	 * @link http://php.net/manual/en/arrayaccess.offsetset.php
-	 *
-	 * @param mixed $offset <p>
-	 *                      The offset to assign the value to.
-	 *                      </p>
-	 * @param mixed $value  <p>
-	 *                      The value to set.
-	 *                      </p>
-	 *
-	 * @return void
-	 */
+
 	#[\ReturnTypeWillChange]
 	public function offsetSet( $offset, $value ) {
 		$this->services[ $offset ] = $value;
 	}
 
-	/**
-	 * (PHP 5 &gt;= 5.0.0)<br/>
-	 * Offset to unset
-	 * @link http://php.net/manual/en/arrayaccess.offsetunset.php
-	 *
-	 * @param mixed $offset <p>
-	 *                      The offset to unset.
-	 *                      </p>
-	 *
-	 * @return void
-	 */
+
 	#[\ReturnTypeWillChange]
 	public function offsetUnset( $offset ) {
 		unset( $this->services[ $offset ] );

@@ -24,7 +24,7 @@ abstract class MC4WP_Dynamic_Content_Tags {
 	protected function register() {
 		// Global tags can go here
 		$this->tags['cookie'] = array(
-			'description' => sprintf( __( 'Data from a cookie.', 'mailchimp-for-wp' ) ),
+			'description' => __( 'Data from a cookie.', 'mailchimp-for-wp' ),
 			'callback'    => array( $this, 'get_cookie' ),
 			'example'     => "cookie name='my_cookie' default='Default Value'",
 		);
@@ -65,13 +65,13 @@ abstract class MC4WP_Dynamic_Content_Tags {
 		);
 
 		$this->tags['user'] = array(
-			'description' => sprintf( __( 'The property of the currently logged-in user.', 'mailchimp-for-wp' ) ),
+			'description' => __( 'The property of the currently logged-in user.', 'mailchimp-for-wp' ),
 			'callback'    => array( $this, 'get_user_property' ),
 			'example'     => "user property='user_email'",
 		);
 
 		$this->tags['post'] = array(
-			'description' => sprintf( __( 'Property of the current page or post.', 'mailchimp-for-wp' ) ),
+			'description' => __( 'Property of the current page or post.', 'mailchimp-for-wp' ),
 			'callback'    => array( $this, 'get_post_property' ),
 			'example'     => "post property='ID'",
 		);
